@@ -2,6 +2,8 @@
 <html>
   <body>
     <button>Open reports for this week</button>
+    <br>
+    <p><em>Assumes running on Monday.</em></p>
   </body>
   <script>
     const urls = [
@@ -14,6 +16,7 @@
     const button = document.querySelector("button");
     button.addEventListener("click", (evt) => {
       const date = new Date();
+      date.setDate(date.getDate() - 1);
       const endDate = date.toLocaleDateString();
       date.setDate(date.getDate() - 7);
       const startDate = date.toLocaleDateString();
