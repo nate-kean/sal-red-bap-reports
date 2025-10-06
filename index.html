@@ -16,10 +16,12 @@
     const button = document.querySelector("button");
     button.addEventListener("click", (evt) => {
       const date = new Date();
-      date.setDate(date.getDate() - 1);
-      const endDate = date.toLocaleDateString();
+      // Last Monday
       date.setDate(date.getDate() - 7);
       const startDate = date.toLocaleDateString();
+      // Last Sunday (yesterday)
+      date.setDate(date.getDate() + 6);
+      const endDate = date.toLocaleDateString();
       for (const url of urls) {
         url.searchParams.set("startDate", startDate);
         url.searchParams.set("endDate", endDate);
