@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button>Open reports for this week</button>
+  </body>
+  <script>
+    const urls = [
+      new URL("https://jamesriver.fellowshiponego.com/reports/attendance/individual?people=attendees&groups[]=178&groups[]=179&groups[]=181&dateRangeType=custom&attendanceRange=present&savedReportId=216"),
+      new URL("https://jamesriver.fellowshiponego.com/reports/attendance/individual?people=attendees&groups[]=195&groups[]=196&groups[]=198&dateRangeType=custom&attendanceRange=present&savedReportId=217"),
+      new URL("https://jamesriver.fellowshiponego.com/reports/attendance/individual?people=attendees&groups[]=135&groups[]=136&groups[]=138&dateRangeType=custom&attendanceRange=present&savedReportId=219"),
+      new URL("https://jamesriver.fellowshiponego.com/reports/attendance/individual?people=attendees&groups[]=142&groups[]=143&groups[]=165&dateRangeType=custom&attendanceRange=present&savedReportId=218"),
+    ];
+    
+    const button = docmuent.querySelector("button");
+    button.addEventListener("click", (evt) => {
+      const date = new Date();
+      const endDate = date.toLocaleDateString();
+      date.setDate(date.getDate() - 7);
+      const startDate = date.toLocaleDateString();
+      for (const url of urls) {
+        url.searchParams.set("startDate", startDate);
+        url.searchParams.set("endDate", endDate);
+        window.open(url.href, "_blank"); 
+      }
+    });
+  </script>
+</html>
