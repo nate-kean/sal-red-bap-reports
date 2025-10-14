@@ -3,6 +3,8 @@
 
 <body>
 	<button>Open reports for this week</button>
+	<br>
+	<p><em>Assumes running on Monday.</em></p>
 </body>
 <script>
 	const urls = [
@@ -24,7 +26,7 @@
 
 	function getLastWeekday(targetDate, day) {
 		const currentWeekday = targetDate.getDay();
-		const daysToSubtract = 7 + ((currentWeekday - day + 7) % 7);
+		const daysToSubtract = (currentWeekday - day + 7) % 7;
 		const lastWeekdayDate = new Date(targetDate);
 		lastWeekdayDate.setDate(targetDate.getDate() - daysToSubtract);
 		return lastWeekdayDate;
@@ -32,11 +34,16 @@
 
 	const button = document.querySelector("button");
 	button.addEventListener("click", (evt) => {
-		const lastMonday = getLastWeekday(new Date(), Day.MONDAY);
-		const startDate = date.toLocaleDateString();
 		// Last Sunday
-		date.setDate(date.getDate() + 6);
-		const endDate = date.toLocaleDateString();
+		const lastSunday = getLastWeekday(new Date(), Day.SUNDAY);
+		const endDate = lastSunday.toLocaleDateString();
+
+		// Monday before last Sunday
+		const date = new Date(lastSunday);
+		date.setDate(date.getDate() - 6);
+		const lastMonday = getLastWeekday(date, Day.MONDAY);
+		const startDate = lastMonday.toLocaleDateString();
+
 		for (const url of urls) {
 			url.searchParams.set("startDate", startDate);
 			url.searchParams.set("endDate", endDate);
